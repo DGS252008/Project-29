@@ -11,10 +11,16 @@ var block_1, block_2, block_3, block_4,
     block_5, block_6, block_7, block_8, block_9;
 var ground1, ground2;
 var shooter, sling;
+var polygon;
+
+var gameState = "onSling";
+
+function preload(){
+  polygon = loadImage('polygon.png')
+}
 
 function setup() {
   createCanvas(1200,600);
-  background(0);
   createSprite(400, 200, 50, 50);
 
   engine = Engine.create();
@@ -32,25 +38,26 @@ function setup() {
 
   block9 = new Block(390, 155, 30, 40);
 
-  block_1 = new Block(130, 135, 30, 40);
-  block_2 = new Block(160, 135, 30, 40);
-  block_3 = new Block(190, 135, 30, 40);
-  block_4 = new Block(220, 135, 30, 40);
-  block_5 = new Block(250, 135, 30, 40);
+  block_1 = new Block(130, 0, 30, 40);
+  block_2 = new Block(160, 0, 30, 40);
+  block_3 = new Block(190, 0, 30, 40);
+  block_4 = new Block(220, 0, 30, 40);
+  block_5 = new Block(250, 0, 30, 40);
   
-  block_6 = new Block(160, 95, 30, 40);
-  block_7 = new Block(190, 95, 30, 40);
-  block_8 = new Block(220, 95, 30, 40);
+  block_6 = new Block(160, 0, 30, 40);
+  block_7 = new Block(190, 0, 30, 40);
+  block_8 = new Block(220, 0, 30, 40);
 
-  block_9 = new Block(190, 55, 30, 40);
+  block_9 = new Block(190, 0, 30, 40);
 
 
-  ground1 = new Ground(390, 300, 170, 20);
-  ground2 = new Ground(190, 200, 170, 20);
+  ground1 = new Ground(380, 300, 350, 20);
+  ground2 = new Ground(780, 500, 350, 20);
 
-  shooter = new Block(50, 95, 20, 20);
+  shooter = Bodies.circle(100, 300, 20);
+  World.add(world, shooter)
   
-  sling = new SlingShot(shooter, {x:50, y:95});
+  sling = new SlingShot(shooter, {x:50, y:200});
 
 
 
@@ -58,7 +65,7 @@ function setup() {
 }
 
 function draw() {
-  background(33, 33, 33);  
+  background("#bee8fa");  
  
   block1.display();
   block2.display();
@@ -79,8 +86,24 @@ function draw() {
   block_7.display();
   block_8.display();
   block_9.display();
-  
-  shooter.display();
+
+  imageMode(CENTER);
+  image(polygon, shooter.position.x, shooter.position.y, 40, 40);
+
+  ground1.display();
+  ground2.display();
 
   sling.display();
+}
+
+function mouseDragged(){
+  if (gameState!=="launched"){
+      Matter.Body.setPosition(shooter.body, {x: mouseX , y: mouseY});
+  }
+}
+
+
+function mouseReleased(){
+  SlingShot.fly();
+  gameState = "launched";
 }

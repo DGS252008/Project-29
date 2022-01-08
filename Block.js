@@ -1,8 +1,8 @@
 class Block{
     constructor(x, y, width, height) {
         var options = {
-            friction: 1.0,
-            density: 1.0,
+            friction: 0.0,
+            restitution: 0.4,
             isStatic: false
         }
         this.x = x;
@@ -13,6 +13,7 @@ class Block{
         this.body = Bodies.rectangle(this.x, this.y, this.width, this.height, options);
         
         World.add(world, this.body);
+
       }
       display(){
        
@@ -20,7 +21,7 @@ class Block{
         translate(this.body.position.x, this.body.position.y);
         rectMode(CENTER);
         fill("#3F9795")
-        rect(this.body.position.x, this.body.position.y, this.height, this.lenght);
+        rect(this.body.position.x, this.body.position.y, this.width, this.height);
         pop();
       }
 }
