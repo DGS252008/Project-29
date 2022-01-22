@@ -26,38 +26,48 @@ function setup() {
   engine = Engine.create();
   world = engine.world;
 
-  block1 = new Block(330, 235, 30, 40);
-  block2 = new Block(360, 235, 30, 40);
-  block3 = new Block(390, 235, 30, 40);
-  block4 = new Block(420, 235, 30, 40);
-  block5 = new Block(450, 235, 30, 40);
-  
-  block6 = new Block(360, 195, 30, 40);
-  block7 = new Block(390, 195, 30, 40);
-  block8 = new Block(420, 195, 30, 40);
-
-  block9 = new Block(390, 155, 30, 40);
-
-  block_1 = new Block(130, 0, 30, 40);
-  block_2 = new Block(160, 0, 30, 40);
-  block_3 = new Block(190, 0, 30, 40);
-  block_4 = new Block(220, 0, 30, 40);
-  block_5 = new Block(250, 0, 30, 40);
-  
-  block_6 = new Block(160, 0, 30, 40);
-  block_7 = new Block(190, 0, 30, 40);
-  block_8 = new Block(220, 0, 30, 40);
-
-  block_9 = new Block(190, 0, 30, 40);
+  // first layer 
+  block1 = new Block(330, 258, 30, 40); 
+  block2 = new Block(360, 258, 30, 40); 
+  block3 = new Block(390, 258, 30, 40); 
+  block4 = new Block(420, 258, 30, 40); 
+  block5 = new Block(450, 258, 30, 40); 
+  block6 = new Block(300, 258, 30, 40); 
+  block7 = new Block(270, 258, 30, 40); 
+  // second layer 
+  block8 = new Block(300, 218, 30, 40); 
+  block9 = new Block(330, 218, 30, 40); 
+  block10 = new Block(360, 218, 30, 40); 
+  block11 = new Block(390, 218, 30, 40); 
+  block12 = new Block(420, 218, 30, 40); 
+  // third layer 
+  block13 = new Block(330, 198, 30, 40); 
+  block14 = new Block(360, 198, 30, 40); 
+  block15 = new Block(390, 198, 30, 40); 
+  // fourth layer 
+  block16 = new Block(360, 158, 30, 40);
 
 
   ground1 = new Ground(380, 300, 350, 20);
   ground2 = new Ground(780, 500, 350, 20);
 
+  // first layer 
+  block_1 = new Block(800, 480, 30, 40); 
+  block_2 = new Block(830, 480, 30, 40); 
+  block_3 = new Block(710, 480, 30, 40); 
+  block_4 = new Block(740, 480, 30, 40); 
+  block_5 = new Block(770, 480, 30, 40); 
+  //second layer
+  block_6 = new Block(740, 440, 30, 40); 
+  block_7 = new Block(770, 440, 30, 40);
+  block_8 = new Block(800, 440, 30, 40); 
+  //third layer
+  block_9 = new Block(770, 400, 30, 40); 
+
   shooter = Bodies.circle(100, 300, 20);
   World.add(world, shooter)
   
-  sling = new SlingShot(shooter, {x:50, y:200});
+  sling = new SlingShot(shooter, {x:150, y:95});
 
 
 
@@ -76,16 +86,24 @@ function draw() {
   block7.display();
   block8.display();
   block9.display();
+  block10.display();
+  block11.display();
+  block12.display();
+  block13.display();
+  block14.display();
+  block15.display();
+  block16.display();
 
   block_1.display();
   block_2.display();
-  block_5.display();
   block_3.display();
   block_4.display();
+  block_5.display();
   block_6.display();
   block_7.display();
   block_8.display();
   block_9.display();
+
 
   imageMode(CENTER);
   image(polygon, shooter.position.x, shooter.position.y, 40, 40);
@@ -97,13 +115,10 @@ function draw() {
 }
 
 function mouseDragged(){
-  if (gameState!=="launched"){
-      Matter.Body.setPosition(shooter.body, {x: mouseX , y: mouseY});
-  }
+      Matter.Body.setPosition(this.shooter, {x: mouseX , y: mouseY});
 }
 
 
 function mouseReleased(){
-  SlingShot.fly();
-  gameState = "launched";
+  sling.fly();
 }
